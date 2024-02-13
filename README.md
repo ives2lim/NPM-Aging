@@ -14,7 +14,7 @@
   <br>
   <a href="placeholder">Report bug</a>
   ·
-  <a href="[placeholder](https://www.a-star.edu.sg/gis/our-science/precision-medicine-and-population-genomics/npm)">Request data</a>
+  <a href="https://www.a-star.edu.sg/gis/our-science/precision-medicine-and-population-genomics/npm">Request data</a>
   ·
   <a href="placeholder">Themes</a>
   ·
