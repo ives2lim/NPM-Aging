@@ -49,7 +49,25 @@ placeholder text
 
 ## Study Cohorts
 
-placeholder text
+### GUSTO - Growing Up in Singapore Towards healthy Outcomes
+A birth cohort comprising of one of the most carefully phenotyped parent-offspring study, enabling examination of the potential roles of fetal, developmental, and epigenetic factors in pathways to disease.
+
+### HELIOS - Health for Life in Singapore
+An adult cohort which aims to identify the genetic and environmental factors that underpin development of obesity, diabetes, cardiovascular disease and other complex diseases in Singapore.
+
+### MEC - Singapore Multi-Ethnic Cohort
+An adult cohort which aims to discover how lifestyle factors, physiological factors, genetic factors and their interactions impact the development of common health conditions, and to monitor risk factors in the population and gain insight into determinants of health-related behaviours.
+
+### PRISM - SingHealth Duke-NUS Institute of PRecIsion Medicine 
+An adult cohort, flagship initiative of the academic medical centre in precision medicine, a discipline where medical treatments and procedures are tailored to individual patients, based on their detailed genetic, molecular and clinical profiles.
+
+### SEED - Singapore Epidemiology of Eye Diseases
+An adult cohort which aims to provide novel knowledge in the population eye health to enable dissecting, detecting and preventing the eye diseases in Singapore and Asia, and to promote and improve global eye
+health.
+
+### TTSH - Tan Tock Seng Hospital Healthy Control Workgroup
+An adult cohort collected between 2015 and 2016 in TTSH Health Screening Programmes to support health related studies at TTSH.
+
 
 ## EpiAge Estimates
 
