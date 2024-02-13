@@ -61,7 +61,21 @@ placeholder text
 
 ## Genomics
 
-placeholder text
+### Data production
+
+- Whole Genome Sequencing of 10,323 healthy Singaporeans was performed.
+- Single-sample gVCF files were obtained following GATK4 "germline short variant per-sample calling" reference implementation defined parameters and companion files (GATK resource bundle GRCh38).
+- msVCF files were obtained by performing a joint-calling step.
+
+### Sample QC & annotation
+
+- 9,770 samples passed the initial genomic coverage requirements per study (see manuscript Supplementary Table 11).
+- Variants failing VQSR filter were removed.
+- Sex was imputed based on the mean depth ratio of chrX/chr20 and chrY/chr20 of each sample, and samples with abnormal ploidy were excluded.
+- Samples with call rate < 95%, contamination rate > 2%, error rate > 1.5%, extreme heterozygosity (> 3SD) were excluded.
+- Samples with cryptic relationships were excluded (pi-hat > 0.2).
+- Samples showing evidence of admixture between ethnicities through PCA outliers were excluded.
+- 5,575 samples pass QC and had available phenotypic data.
 
 ## Telomere length
 
