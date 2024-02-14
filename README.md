@@ -36,13 +36,15 @@
 
 
 ## NPM Aging Study Github Code Dump
-This is my first time using github. Please bear with me as I build this page.<br>
+<br>
 
 Singapore's National Precision Medicine (NPM) strategy seeks to acceleration biomedical research, improve health outcomes, and enhance opportunities for economic value across sectors through a decade long roadmap. The first phase of this strategy is a "proof of concept", through the SG10K health study - primarily generating a genomic reference database of 10,000 healthy Singaporeans, demonstrating the feasibility of large-scale genomic data generation. As part of SG10K health study, this study investigates the Ageing-related clinical phenotypes, alongside genetic, epigenetic, telomere length, and epigenetic clocks, to provide a comprehensive overview of the molecular landscape of Age-related phenotypes in an Asian multiethnic cohort.
 
 This git repository houses the codes used for the analysis of the NPM Aging Study. 
 
 placeholder for link to manuscript.
+<br>
+<br>
 
 
 ## Table of contents
@@ -56,6 +58,7 @@ placeholder for link to manuscript.
 - [Authors](#authors)
 
 
+<br>
 
 ## Study Cohorts
 
@@ -79,9 +82,13 @@ health.
 An adult cohort collected between 2015 and 2016 in TTSH Health Screening Programmes to support health related studies at TTSH.
 
 
+<br>
+
 ## EpiAge Estimates
 
 placeholder text
+
+<br>
 
 ## DNA Methylation
 
@@ -102,6 +109,8 @@ placeholder text
 - CpGs with ethnic-specific (based on SG10K MAF <5%) within single-base extension were removed.
 - Cross hybridizing probes and probes recommended to be removed under the Illumina EPIC manifest (v1_0_b5) were removed.
 
+<br>
+
 ## Genomics
 
 ### Data production
@@ -120,17 +129,25 @@ placeholder text
 - Samples showing evidence of admixture between ethnicities through PCA outliers were excluded.
 - 5,575 samples pass QC and had available phenotypic data.
 
+<br>
+
 ## Telomere length
 
 placeholder text
+
+<br>
 
 ## Analysis Overview
 
 placeholder text
 
+<br>
+
 ### GWAS
 
 placeholder text
+
+<br>
 
 ### EWAS
 
@@ -140,6 +157,7 @@ placeholder text
 - This gave us 91,412 Age meta-EWAS significant CpGs.
 
 
+<br>
 
 ## Status 
 
@@ -148,6 +166,7 @@ placeholder text
 
 
 
+<br>
 
 ## Authors
 
