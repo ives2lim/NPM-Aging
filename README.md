@@ -143,7 +143,7 @@ placeholder text
 
 ## Status 
 
-placeholder text
+*Manuscript in preparation.*
 
 
 
@@ -151,9 +151,11 @@ placeholder text
 
 ## Authors
 
-**Ives Lim**
+- **[Ives Lim](https://www.linkedin.com/in/ives-lim)**
+- **[Penny Chan](https://sg.linkedin.com/in/penny-chan-3a60a751)**
+- **[Trang Nguyen](https://www.linkedin.com/in/trangnguyen1503)**
+- **Diogo Goncalves Barardo**
 
-- <https://www.linkedin.com/in/ives-lim>
 
 
 
