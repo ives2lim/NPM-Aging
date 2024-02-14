@@ -33,19 +33,16 @@ placeholder for link to manuscript.
 
 
 ## Table of contents
-- [Analysis Overview](#overview)
 - [Study Cohorts](#cohorts)
 - [EpiAge Estimates](#epiage)
 - [DNA Methylation](#5mc)
 - [Genomics](#genomics)
 - [Telomere Length](#telomeres)
+- [Analysis Overview](#overview)
 - [Status](#status)
 - [Authors](#authors)
 
-  
-## Analysis Overview
 
-placeholder text
 
 ## Study Cohorts
 
@@ -85,7 +82,7 @@ placeholder text
 - Samples failing sample call rates were removed (total CpGs passing QC per sample < 90%)
 - Samples where phenotypic sex does not match sequenced sex were removed.
 - Highly correlated samples were removed.
-- Multimodal CpGs were removed (nmode.mc (modedist=0.2) > 1)
+- Multimodal CpGs were removed ([nmode.mc](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/5mC/5mC-QC-nmode.R) (modedist=0.2) > 1) 
 - Non-variable CpGs were removed (IQR < 0.05)
 - CpGs failing marker call rates were removed (Det P > 0.01)
 - Sex chromosomes were removed.
@@ -113,6 +110,23 @@ placeholder text
 ## Telomere length
 
 placeholder text
+
+## Analysis Overview
+
+placeholder text
+
+### GWAS
+
+placeholder text
+
+### EWAS
+
+- To mitigate the influence of DNA methylation outliers, we [truncate outlier](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/Rcmds/truncate_outliers.R) values beyond 2xIQR to the nearest value. [see [PMID: 34633450](https://pubmed.ncbi.nlm.nih.gov/34633450/)]
+- To mitigate batch effects, we conduct [linear regression analyses](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/5mC/5mC-LM.R) via study-specific ethnic and sex sub-cohorts (N>50), before combining the results via [meta-analysis under a standard error approach](https://pubmed.ncbi.nlm.nih.gov/31563865/). Per linear regression, we adjust for chip and cell type proportion. This gave us 117,778 EWAS significant CpGs.
+- Subsequently, we conduct a leave-one-out (LOO) analysis and remove CpGs which do not pass LOO meta-EWAS significance or have non-concordant effect size directionalities across all [LOOs](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/5mC/5mC-mergeLOOs.R).
+- This gave us 91,412 Age meta-EWAS significant CpGs.
+
+
 
 ## Status 
 
