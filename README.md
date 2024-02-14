@@ -75,7 +75,22 @@ placeholder text
 
 ## DNA Methylation
 
-placeholder text
+### Data production
+
+- Illumina EPIC Array analysis was performed by Marie's Loh lab (Marie_LOH@gis.a-star.edu).
+- Single-sample csv files per study were obtained following standard Type 1/Type 2 and Red/Green channel normalizations.
+
+### Sample QC & annotation
+- 8,066 samples passed the initial QCs in Marie Loh's lab.
+- Samples failing sample call rates were removed (total CpGs passing QC per sample < 90%)
+- Samples where phenotypic sex does not match sequenced sex were removed.
+- Highly correlated samples were removed.
+- Multimodal CpGs were removed (nmode.mc (modedist=0.2) > 1)
+- Non-variable CpGs were removed (IQR < 0.05)
+- CpGs failing marker call rates were removed (Det P > 0.01)
+- Sex chromosomes were removed.
+- CpGs with ethnic-specific (based on SG10K MAF <5%) within single-base extension were removed.
+- Cross hybridizing probes and probes recommended to be removed under the Illumina EPIC manifest (v1_0_b5) were removed.
 
 ## Genomics
 
