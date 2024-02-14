@@ -87,7 +87,7 @@ placeholder text
 
 ### Data production
 
-- Illumina EPIC Array analysis was performed by Marie's Loh lab (Marie_LOH@gis.a-star.edu).
+- Illumina EPIC Array pre-processing was performed by [Marie's Loh lab](mailto:Marie_LOH@gis.a-star.edu).
 - Single-sample csv files per study were obtained following standard Type 1/Type 2 and Red/Green channel normalizations.
 
 ### Sample QC & annotation
