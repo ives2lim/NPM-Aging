@@ -90,6 +90,7 @@ placeholder text
 
 <br>
 
+
 ## DNA Methylation
 
 ### Data production
@@ -131,9 +132,16 @@ placeholder text
 
 <br>
 
-## Telomere length
+## [Telomere length](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/telomeres/software-eg-script.ipynb)
 
-placeholder text
+### Data production
+
+- TelSeq was conducted on SG10K genomic data passing genomic QC, evaluating the frequency of telomeric repeats (TTAGGG) with a default parameter of k=7.
+
+### Sample QC & annotation
+
+- TelSeq estimates were correlated with qPCR measured telomere lengths in a subset of the same study samples as well as other WGS based telomere length estimations (Telomerecat).
+- Raw estimates were normalized through rank-based z-scores.
 
 <br>
 
