@@ -164,6 +164,13 @@ placeholder text
 - Subsequently, we conduct a leave-one-out (LOO) analysis and remove CpGs which do not pass LOO meta-EWAS significance or have non-concordant effect size directionalities across all [LOOs](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/5mC/5mC-mergeLOOs.R).
 - This gave us 91,412 Age meta-EWAS significant CpGs.
 
+<br>
+
+
+### Telomere Length
+
+- Linear regression was used to differentiate telomere length differences between datasets within the SG10K cohort, as well as associations with the various phenotypes, adjusting for cohort (where applicable), age, ethnicity, and sex.
+
 
 <br>
 
