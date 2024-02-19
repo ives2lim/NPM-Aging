@@ -188,7 +188,7 @@ placeholder text
 - **[Ives Lim](https://www.linkedin.com/in/ives-lim)**
 - **[Penny Chan](https://sg.linkedin.com/in/penny-chan-3a60a751)**
 - **[Trang Nguyen](https://www.linkedin.com/in/trangnguyen1503)**
-- **Diogo Goncalves Barardo**
+
 
 
 
