@@ -49,8 +49,8 @@ placeholder for link to manuscript.
 
 ## Table of contents
 - [Study Cohorts](#cohorts)
-- [EpiAge Estimates](#epiage)
 - [DNA Methylation](#5mc)
+- [EpiAge Estimates](#epiage)
 - [Genomics](#genomics)
 - [Telomere Length](#telomeres)
 - [Analysis Overview](#overview)
@@ -84,13 +84,6 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 <br>
 
-## EpiAge Estimates
-
-placeholder text
-
-<br>
-
-
 ## DNA Methylation
 
 ### Data production
@@ -112,6 +105,23 @@ placeholder text
 
 <br>
 
+## EpiAge Estimates
+
+- Post QC DNA methylation betas were used in the generation of epigenetic ages.
+- Age acceleration estimates were adjusted for chronological age.
+- Three of the epigenetic age variants were obtained from the [DNA methylation Age Calculator](https://dnamage.genetics.ucla.edu/new) developed by Steve Horvath:
+  - Horvath
+  - PhenoAge
+  - GrimAge
+- Cell type proportions were obtained from AdvancedAnalysisBlood from the calculator.
+- The output was also normalized by the calculator to make the data comparable between clocks.
+- corSampleVSgoldstandard was also adopted under a < 0.8 threshold as recommended by the calculator.
+- Zhang (Elastic Net) age estimates were calculated from [scripts available online](https://github.com/qzhang314/DNAm-based-age-predictor).
+- Zhang Age acceleration values were obtained by regressing Zhang DNA methylation age on chronological age.
+
+<br>
+
+
 ## Genomics
 
 ### Data production
@@ -120,15 +130,17 @@ placeholder text
 - Single-sample gVCF files were obtained following GATK4 "germline short variant per-sample calling" reference implementation defined parameters and companion files (GATK resource bundle GRCh38).
 - msVCF files were obtained by performing a joint-calling step.
 
-### Sample QC & annotation
+### [Sample QC](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/qc_eg.sh) & annotation
 
 - 9,770 samples passed the initial genomic coverage requirements per study (see manuscript Supplementary Table 11).
 - Variants failing VQSR filter were removed.
 - Sex was imputed based on the mean depth ratio of chrX/chr20 and chrY/chr20 of each sample, and samples with abnormal ploidy were excluded.
 - Samples with call rate < 95%, contamination rate > 2%, error rate > 1.5%, extreme heterozygosity (> 3SD) were excluded.
+- Only non-monomorphic autosomal biallelic SNPs in HWE (P < 10e-8) were included.
+- Low complexity regions were excluded after LD pruning (r^2 > 0.2).
 - Samples with cryptic relationships were excluded (pi-hat > 0.2).
 - Samples showing evidence of admixture between ethnicities through PCA outliers were excluded.
-- 5,575 samples pass QC and had available phenotypic data.
+
 
 <br>
 
@@ -147,13 +159,25 @@ placeholder text
 
 ## Analysis Overview
 
-placeholder text
+### Epigenetic age acceleration associations with metabolic health phenotypes and telomere length
+
+- [Linear regression models](https://github.com/ives2lim/NPM-Aging/blob/main/clinical-phenotypes/assoc_eg.R) were employed, adjusting for cohort, interactions between ethnicity and sex, and cell type proportions.
 
 <br>
 
 ### GWAS
 
-placeholder text
+- 5,593 unique adult samples had genetic and age acceleration (any one of the four) passing QC.
+- Samples were stratified by cohort and ethnicity prior to analyses.
+- Associations were adjusted for sex and genetic PCA PCs.
+- For common SNPs,
+  - [Linear Wald test analysis](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/EPACTS-eg.R) was conducted using Efficient and Parallelizable Association Container Toolbox (EPACTS v3.3.0)
+  - Cohort-specific association summaries were meta-analyzed using a standard error approach in [METAL](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/METAL.cmd).
+  - SNPs present in 3 or less (out of 5) of the cohorts, or having a VQSLOD < 0 were excluded from the meta-analysis.
+- For rare SNPs,
+  - autosomal, low frequency (MAF < 0.05), protein altering variants (as annotated by [SnpEff](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/annotate.sh)) present in at least 4 cohorts were analyzed under gene-based tests using [RAREMETAL](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/burden.sh) (SKAT method).
+  - RVTEST was used to calculate the single-SNP summary statistics and covariance matrices from each cohort required for the meta-analysis.
+  - Genes with < 5 aggregated SNPs in the SKAT test were omitted.
 
 <br>
 
