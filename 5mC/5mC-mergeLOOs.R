@@ -1,4 +1,4 @@
-## This is Rscript-NPM-5mC-08-merge-v2.R
+## This is Rscript-NPM-5mC-08-merge-v3.R
 # file names and locations have been removed
 # After full meta, LOO, load results and filter based on LOO findings
 # filter by ewas sig, then by loo, then by direction
@@ -49,39 +49,54 @@ i<-1
                 pass2$minusTTSH_meta_fdr < 5e-8 ,]
   dim(pass2)
 
-  check <- as.matrix(str_split_fixed(pass2$direction,'',nchar(pass2$direction[1])))
+  # all subcohorts same direction (option not used)
+  pass3 <- na.omit(pass2)
+  pass3 <- pass3[pass3$direction == paste0((rep("+", nchar(pass3$direction[1]))), collapse="") |
+                pass3$direction == paste0((rep("-", nchar(pass3$direction[1]))), collapse=""), ]
+  dim(pass3)
+
+  # allowance of 1 (95% of subcohorts) same direction
+  check <- as.matrix(str_split_fixed(pass2$direction,'',nchar(pass3$direction[1])))
   rownames(check) <- pass2$CpG
   head(check)
 
-  check <- cbind(check, matrix(NA, nrow=nrow(check), ncol=7))
-  colnames(check) <- c(1:24,"CF","CM","MF","MM","IF","IM","checksum")
-                        #       "CFcheck","CMcheck","MFcheck","MMcheck","IFcheck","IMcheck")
+  check.plus <- rowSums(check == "+")
+  check.minus <- rowSums(check == "-")
 
-  for(k in 1:nrow(check)){
-  check[k,"CF"] <- ifelse(nchar(paste0(unique(check[k,c(1,4,7,8,11)]),collapse="")) == 1, 1, 0)
-  check[k,"CM"] <- ifelse(nchar(paste0(unique(check[k,c(14,17,20,21,24)]),collapse="")) == 1, 1, 0)
-  check[k,"MF"] <- ifelse(nchar(paste0(unique(check[k,c(3,6,10,13)]),collapse="")) == 1, 1, 0)
-  check[k,"MM"] <- ifelse(nchar(paste0(unique(check[k,c(16,19,23)]),collapse="")) == 1, 1, 0)
-  check[k,"IF"] <- ifelse(nchar(paste0(unique(check[k,c(2,5,9,12)]),collapse="")) == 1, 1, 0)
-  check[k,"IM"] <- ifelse(nchar(paste0(unique(check[k,c(15,18,22)]),collapse="")) == 1, 1, 0)
-  check[k,"checksum"] <- sum(as.numeric(check[k,25:30]))
+  check <- rbind(check.plus,check.minus)
+  check[,1:4]
+  check <- t(check)
+  check <- data.frame(check)
 
-  }; rm(k)
+  cut.95 <- check[check$check.plus >=23 | check$check.minus >=23,]
+  head(cut.95)
+  dim(cut.95)
 
-  # if any is a 1, pass, so, if checksum>=1, pass
+  # allowance of 2 (90%) (option not used)
+  cut.90 <- check[check$check.plus >=22 | check$check.minus >=22,]
+  head(cut.90)
+  dim(cut.90)
 
-  summary(pass1$CpG %in% rownames(check)[check[,"checksum"] >= 1])
-  summary(pass2$CpG %in% rownames(check)[check[,"checksum"] >= 1])
+  pass4 <- na.omit(pass2)
+  pass4 <- pass4[pass4$CpG %in% rownames(cut.95),]
+  dim(pass4)
 
-  pass3 <- na.omit(pass2)
-  pass3 <- pass3[pass3$CpG %in% rownames(check)[check[,"checksum"] >= 1],]
-  dim(pass3)
+  pass5 <- na.omit(pass2)
+  pass5 <- pass5[pass5$CpG %in% rownames(cut.90),]
+  dim(pass5)
 
-
-  write.table(pass2, paste(prefix,"combined_meta_LOO-significant.results",sep="-"),
+  write.table(fullresults, paste(prefix,"combined_meta_LOO-allcpgs.results",sep="-"),
                 row.names=FALSE, col.names=TRUE, sep="\t")
 
+  write.table(pass3, paste(prefix,"combined_meta_LOO-strict.results",sep="-"),
+                row.names=FALSE, col.names=TRUE, sep="\t")
 
+  write.table(pass4, paste(prefix,"combined_meta_LOO-general.results",sep="-"),
+                row.names=FALSE, col.names=TRUE, sep="\t")
+
+  write.table(pass5, paste(prefix,"combined_meta_LOO-loose.results",sep="-"),
+                row.names=FALSE, col.names=TRUE, sep="\t")
+                        
 
 
 sessionInfo()
