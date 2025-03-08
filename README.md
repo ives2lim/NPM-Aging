@@ -25,8 +25,6 @@
   <br>
   <a href="https://sg.linkedin.com/in/neerjakarnani">Neerja Karnani</a>
   .
-  <a href="https://sg.linkedin.com/in/rajkumar-dorajoo-22a6a6145">Rajkumar Dorajoo</a>
-  .
   <a href="https://sg.linkedin.com/in/joannengeow">Joanne Ngeow Yuen Yie</a>
   .
   <a href="https://sg.linkedin.com/in/brian-kennedy-69777318">Brian Kennedy</a>
@@ -117,7 +115,7 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 ### Data production
 
-- Whole Genome Sequencing of 10,323 healthy Singaporeans was performed.
+- Whole Genome Sequencing of 10,258 healthy Singaporeans was performed.
 - Single-sample gVCF files were obtained following GATK4 "germline short variant per-sample calling" reference implementation defined parameters and companion files (GATK resource bundle GRCh38).
 - msVCF files were obtained by performing a joint-calling step.
 
@@ -209,7 +207,7 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 ## Status 
 
-*Manuscript in preparation.*
+*Manuscript under review.*
 
 
 
@@ -221,6 +219,8 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 - **[Ives Lim](https://www.linkedin.com/in/ives-lim)**
 - **[Penny Chan](https://sg.linkedin.com/in/penny-chan-3a60a751)**
 - **[Trang Nguyen](https://www.linkedin.com/in/trangnguyen1503)**
+- **[Rajkumar Dorajoo](https://sg.linkedin.com/in/rajkumar-dorajoo-22a6a6145)**
+
 
 
 
