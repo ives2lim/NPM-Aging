@@ -86,7 +86,7 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 ### Data production
 
-- Illumina EPIC Array pre-processing was performed by [Marie's Loh lab](mailto:Marie_LOH@gis.a-star.edu).
+- Illumina EPIC Array pre-processing was performed by [Marie's Loh lab](mailto:Marie_LOH@a-star.edu.sg).
 - Single-sample csv files per study were obtained following standard Type 1/Type 2 and Red/Green channel normalizations.
 
 ### Sample QC & annotation
@@ -107,7 +107,7 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 - Sex chromosomes were removed.
 - CpGs with ethnic-specific (based on SG10K MAF <5%) within single-base extension were removed.
 - Cross hybridizing probes and probes recommended to be removed under the Illumina EPIC manifest (v1_0_b5) were removed.
-- 747,992 CpGs passed this QC.
+- 747,212 CpGs passed this QC.
 
 <br>
 
@@ -115,7 +115,7 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 ### Data production
 
-- Whole Genome Sequencing of 10,258 healthy Singaporeans was performed.
+- Whole Genome Sequencing of 10,259 healthy Singaporeans was performed.
 - Single-sample gVCF files were obtained following GATK4 "germline short variant per-sample calling" reference implementation defined parameters and companion files (GATK resource bundle GRCh38).
 - msVCF files were obtained by performing a joint-calling step.
 
@@ -135,18 +135,11 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 ## EpiAge Estimates
 
-- Subjects passing WGS QCs (having WGS-derived ethnicity classifications) were combined with those passing DNA Methylation QCs. This gave us 6,240 unique subjects.
+- Subjects passing WGS QCs (having WGS-derived ethnicity classifications) were combined with those passing DNA Methylation QCs. This gave us 6,240 unique subjects (5,566 adults + 674 birth cohort).
 - Post QC DNA methylation betas were used in the generation of epigenetic ages.
-- Age acceleration estimates were adjusted for chronological age.
-- Three of the epigenetic age variants were obtained from the [DNA methylation Age Calculator](https://dnamage.genetics.ucla.edu/new) developed by Steve Horvath:
-  - Horvath
-  - PhenoAge
-  - GrimAge
-- Cell type proportions were obtained from AdvancedAnalysisBlood from the calculator.
-- The output was also normalized by the calculator to make the data comparable between clocks.
-- corSampleVSgoldstandard was also adopted under a < 0.8 threshold as recommended by the calculator.
-- Zhang (Elastic Net) age estimates were calculated from [scripts available online](https://github.com/qzhang314/DNAm-based-age-predictor).
-- Zhang Age acceleration values were obtained by regressing Zhang DNA methylation age on chronological age.
+- Code to calculate the clocks such as Systems Age are available in the [Methylcipher package](https://github.com/HigginsChenLab/methylCIPHER).
+  - Ethnic-specific age residuals were adjusted for age, sex, BMI, batch, cohort, and cell type proportions.
+  - Sex-specific age residuals were adjusted for age, ethnicity, BMI, batch, cohort, and cell type proportions.
 
 <br>
 
@@ -168,40 +161,29 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 ### Epigenetic age acceleration associations with metabolic health phenotypes and telomere length
 
-- [Linear regression models](https://github.com/ives2lim/NPM-Aging/blob/main/clinical-phenotypes/assoc_eg.R) were employed, adjusting for cohort, ethnicity, sex, and cell type proportions.
+- [Linear regression models](https://github.com/ives2lim/NPM-Aging/blob/main/clinical-phenotypes/assoc_eg.R) were employed, adjusting for cohort, ethnicity, sex, BMI, and cell type proportions.
 
 <br>
 
 ### GWAS
 
-- 5,497 unique adult samples had genetic and age acceleration (any one of the four) passing QC.
-- Samples were stratified by cohort and ethnicity prior to analyses.
+- 5,566 unique adult samples had genetic and age acceleration passing QC.
+- Samples were stratified by cohort, ethnicity, and sex prior to analyses.
+- For sex-stratified analyses, post QCed SNPs present across all three ethnic groups were used.
 - Associations were adjusted for sex and genetic PCA PCs.
 - For common SNPs,
   - [Linear Wald test analysis](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/EPACTS-eg.R) was conducted using Efficient and Parallelizable Association Container Toolbox (EPACTS v3.3.0)
   - Cohort-specific association summaries were meta-analyzed using a standard error approach in [METAL](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/METAL.cmd).
   - SNPs present in 3 or less (out of 5) of the cohorts, or having a VQSLOD < 0 were excluded from the meta-analysis.
-- For rare SNPs,
-  - autosomal, low frequency (MAF < 0.05), protein altering variants (as annotated by [SnpEff](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/annotate.sh)) present in at least 4 cohorts were analyzed under gene-based tests using [RAREMETAL](https://github.com/ives2lim/NPM-Aging/blob/main/GWAS/burden.sh) (SKAT method).
-  - RVTEST was used to calculate the single-SNP summary statistics and covariance matrices from each cohort required for the meta-analysis.
-  - Genes with < 5 aggregated SNPs in the SKAT test were omitted.
-
+- Pairwise comparisons of lead SNP effect estimates between phenotypes (ethnicity and sex) were done using a z-test for independent summary estimates with two-sided p-values.
+- Bonferroni multiple-testing correction for p-values was done.
 <br>
 
 ### EWAS
 
 - To mitigate the influence of DNA methylation outliers, we [truncate outlier](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/Rcmds/truncate_outliers.R) values beyond 2xIQR to the nearest value. [see [PMID: 34633450](https://pubmed.ncbi.nlm.nih.gov/34633450/)]
-- To mitigate batch effects, we conduct [linear regression analyses](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/5mC/5mC-LM.R) via study-specific ethnic and sex sub-cohorts (N>50), before combining the results via [meta-analysis under a standard error approach](https://pubmed.ncbi.nlm.nih.gov/31563865/). Per linear regression, we adjust for chip and cell type proportion. This gave us 112,472 EWAS significant CpGs.
-- Subsequently, we conduct a leave-one-out (LOO) analysis and remove CpGs which do not pass LOO meta-EWAS significance or have mostly non-concordant effect size directionalities across all [LOOs](https://github.com/ives2lim/NPM-Aging-Epiclock/blob/main/5mC/5mC-mergeLOOs.R).
-- This gave us 36,878 Age meta-EWAS significant CpGs.
-
-<br>
-
-
-### Telomere Length
-
-- Linear regression was used to differentiate telomere length differences between datasets within the SG10K cohort, as well as associations with the various phenotypes, adjusting for cohort (where applicable), age, ethnicity, and sex.
-
+- DNA methylation associations with chronological age were adjusted for BMI, ethnicity, sex, cohort, batch, and cell type proportion.
+- This gave us 97,208 Age significant CpGs.
 
 <br>
 
@@ -218,6 +200,7 @@ An adult cohort collected between 2015 and 2016 in TTSH Health Screening Program
 
 - **[Ives Lim](https://www.linkedin.com/in/ives-lim)**
 - **[Penny Chan](https://sg.linkedin.com/in/penny-chan-3a60a751)**
+- **[Raghav Seghal](https://www.linkedin.com/in/raghav-sehgal-yale/)**
 - **[Trang Nguyen](https://www.linkedin.com/in/trangnguyen1503)**
 - **[Rajkumar Dorajoo](https://sg.linkedin.com/in/rajkumar-dorajoo-22a6a6145)**
 
